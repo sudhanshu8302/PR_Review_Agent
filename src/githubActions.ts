@@ -17,8 +17,6 @@ export async function getPullRequestFiles(owner: string, repo: string, pr_number
         }
     });
 
-    console.log(response.data);
-
     var data = '';
     for (const file of response.data) {
         data += `Filename: ${file.filename}\n`;
@@ -28,7 +26,8 @@ export async function getPullRequestFiles(owner: string, repo: string, pr_number
         data += `Changes: ${file.changes}\n`;
         data += `Patch:\n${file.patch}\n\n`;
     }
-    console.log(data);
+
+    return data;
 }
 
 export async function postComment(owner: string, repo: string, pr_number: number, comment: string) {
@@ -38,5 +37,5 @@ export async function postComment(owner: string, repo: string, pr_number: number
         pull_number: pr_number,
         body: comment,
         event: "COMMENT"
-        });
+    });
 }
