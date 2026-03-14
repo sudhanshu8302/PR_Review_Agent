@@ -30,3 +30,13 @@ export async function getPullRequestFiles(owner: string, repo: string, pr_number
     }
     console.log(data);
 }
+
+export async function postComment(owner: string, repo: string, pr_number: number, comment: string) {
+    await octokit.pulls.createReview({
+        owner: owner,
+        repo: repo,
+        pull_number: pr_number,
+        body: comment,
+        event: "COMMENT"
+        });
+}
