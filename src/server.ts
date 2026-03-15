@@ -5,12 +5,12 @@ const app = express();
 app.use(express.json());
 
 app.post("/webhook", async (req, res) => {
-  const event = {
-    headers: req.headers,
-    body: JSON.stringify(req.body)
-  };
-
-  const result = await handler(event);
+  console.log("Received webhook body:", req.body );
+  const result = await handler({
+    owner: req.body.repository.owner.login,
+    repo: req.body.repository.name,
+    prNumber: req.body.number
+  });
   res.status(result.statusCode).send(result.body);
 });
 
