@@ -4,7 +4,7 @@ import { MemorySaver } from "@langchain/langgraph";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
-import { getPullRequestFiles, postComment } from './githubActions.js';
+import { getPullRequestFiles, postComment } from './githubActions.mjs';
 import { ChatPromptTemplate, MessagesPlaceholder } from '@langchain/core/prompts';
 
 dotenv.config();
@@ -21,7 +21,7 @@ export function createAgent() {
     // 1. Wrap function as a tool
     const tools = [
         tool(
-            async (input: { owner: string; repo: string; prNumber: number }) => {
+            async (input) => {
                 return await getPullRequestFiles(input.owner, input.repo, input.prNumber);
             },
             {
@@ -35,7 +35,7 @@ export function createAgent() {
             }
         ),
         tool(
-            async (input: { owner: string; repo: string; prNumber: number, comment: string }) => {
+            async (input) => {
                 return await postComment(input.owner, input.repo, input.prNumber, input.comment);
             },
             {

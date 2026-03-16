@@ -1,0 +1,4 @@
+curl -X POST http://localhost:3000/webhook \
+-H "Content-Type: application/json" \
+-H "X-GitHub-Event: pull_request" \
+-d "payloadJson"

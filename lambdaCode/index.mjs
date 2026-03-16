@@ -1,16 +1,10 @@
+
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { HumanMessage } from "@langchain/core/messages";
-import dotenv from 'dotenv';
-import { createAgent } from "./agent.js";
+import { createAgent } from "./agent.mjs";
 
-dotenv.config();
-
-export async function handler(event: { 
-    owner: string;
-    repo: string;
-    prNumber: number[];
- }) {
-    console.log("Received event:", event);
+export const handler = async (event) => {
+  console.log("Received event:", event);
 
     try {
         const agent = createAgent();
@@ -46,10 +40,11 @@ export async function handler(event: {
         console.error("Error in handler:", error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: "An error occurred while processing the review", error: (error as any).message }),
+            body: JSON.stringify({ message: "An error occurred while processing the review", error: error.message }),
         }
     }
-}
+};
+
 
 
 

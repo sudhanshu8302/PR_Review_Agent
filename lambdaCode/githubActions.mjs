@@ -7,7 +7,7 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN || '',
 });
 
-export async function getPullRequestFiles(owner: string, repo: string, pr_number: number) {
+export async function getPullRequestFiles(owner, repo, pr_number) {
     const response = await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/files', {
         owner: owner,
         repo: repo,
@@ -30,7 +30,7 @@ export async function getPullRequestFiles(owner: string, repo: string, pr_number
     return data;
 }
 
-export async function postComment(owner: string, repo: string, pr_number: number, comment: string) {
+export async function postComment(owner, repo, pr_number, comment) {
     await octokit.pulls.createReview({
         owner: owner,
         repo: repo,
