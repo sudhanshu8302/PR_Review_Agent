@@ -6,11 +6,7 @@ app.use(express.json());
 
 app.post("/webhook", async (req, res) => {
   console.log("Received webhook body:", req.body );
-  const result = await handler({
-    owner: req.body.repository.owner.login,
-    repo: req.body.repository.name,
-    prNumber: req.body.number
-  });
+  const result = await handler(req);
   res.status(result.statusCode).send(result.body);
 });
 

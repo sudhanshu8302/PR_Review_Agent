@@ -5,13 +5,8 @@ import { createAgent } from "./agent.js";
 
 dotenv.config();
 
-export async function handler(event: { 
-    owner: string;
-    repo: string;
-    prNumber: number[];
- }) {
+export async function handler(event: any) {
     console.log("Received event:", event);
-
     try {
         const agent = createAgent();
 
@@ -19,7 +14,7 @@ export async function handler(event: {
             messages: [
                 new HumanMessage(
                     `review_request = f"""
-        Please review Pull Request ${event.prNumber} in repository ${event.repo} of owner ${event.owner}.
+        Please review Pull Request ${event.body.number} in repository ${event.body.repository.name} of owner ${event.body.repository.owner.login}.
         
         Steps:
         1. Get the PR details and analyze the changes
